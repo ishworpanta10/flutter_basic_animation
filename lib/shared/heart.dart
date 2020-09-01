@@ -9,6 +9,7 @@ class _HeartState extends State<Heart> with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation<Color> _colorTween;
   Animation<double> _pulseTween;
+  Animation _curve;
 
   bool isFav = false;
 
@@ -20,9 +21,14 @@ class _HeartState extends State<Heart> with SingleTickerProviderStateMixin {
       duration: Duration(milliseconds: 300),
     );
 
-    _colorTween = ColorTween(begin: Colors.grey[400], end: Colors.red)
-        .animate(_controller);
+    // For Curve Animation
+    _curve = CurvedAnimation(parent: _controller, curve: Curves.slowMiddle);
 
+    // For Color Animation
+    _colorTween =
+        ColorTween(begin: Colors.grey[400], end: Colors.red).animate(_curve);
+
+    // For Size Animation
     _pulseTween = TweenSequence(<TweenSequenceItem<double>>[
       TweenSequenceItem(tween: Tween<double>(begin: 30, end: 50), weight: 50),
       TweenSequenceItem(tween: Tween<double>(begin: 50, end: 30), weight: 50)

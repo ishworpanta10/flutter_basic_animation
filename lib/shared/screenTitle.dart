@@ -16,7 +16,7 @@ class ScreenTitle extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      
+      curve: Curves.easeIn,
       duration: Duration(seconds: 1),
       tween: Tween<double>(begin: 0, end: 1),
       builder: (BuildContext context, double _value, Widget child) {
