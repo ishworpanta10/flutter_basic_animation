@@ -23,7 +23,7 @@ class _HeartState extends State<Heart> with SingleTickerProviderStateMixin {
     _controller.forward();
 
     _controller.addListener(() {
-      setState(() {});
+      // setState(() {});
       print(_controller.value);
       print(_colorTween.value);
     });
@@ -31,13 +31,16 @@ class _HeartState extends State<Heart> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      icon: Icon(
-        Icons.favorite,
-        color: _colorTween.value,
-        size: 30,
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (BuildContext context, _) => IconButton(
+        icon: Icon(
+          Icons.favorite,
+          color: _colorTween.value,
+          size: 30,
+        ),
+        onPressed: () {},
       ),
-      onPressed: () {},
     );
   }
 }
