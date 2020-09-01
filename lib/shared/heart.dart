@@ -9,6 +9,8 @@ class _HeartState extends State<Heart> with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation _colorTween;
 
+  bool isFav = false;
+
   @override
   void initState() {
     super.initState();
@@ -20,13 +22,31 @@ class _HeartState extends State<Heart> with SingleTickerProviderStateMixin {
     _colorTween = ColorTween(begin: Colors.grey[400], end: Colors.red)
         .animate(_controller);
 
-    _controller.forward();
-
     _controller.addListener(() {
       // setState(() {});
       print(_controller.value);
       print(_colorTween.value);
     });
+
+    _controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        setState(() {
+          isFav = true;
+        });
+      }
+
+      if (status == AnimationStatus.dismissed) {
+        setState(() {
+          isFav = false;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
   }
 
   @override
@@ -39,7 +59,9 @@ class _HeartState extends State<Heart> with SingleTickerProviderStateMixin {
           color: _colorTween.value,
           size: 30,
         ),
-        onPressed: () {},
+        onPressed: () {
+          isFav ? _controller.reverse() : _controller.forward();
+        },
       ),
     );
   }
