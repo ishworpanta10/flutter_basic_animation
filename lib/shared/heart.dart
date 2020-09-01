@@ -71,7 +71,7 @@ class _HeartState extends State<Heart> with SingleTickerProviderStateMixin {
           color: _colorTween.value,
           size: _pulseTween.value,
         ),
-        onPressed: () {
+        onPressed: () { 
           isFav ? _controller.reverse() : _controller.forward();
         },
       ),
